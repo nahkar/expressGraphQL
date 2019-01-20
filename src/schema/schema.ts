@@ -1,7 +1,7 @@
 import * as graphql from 'graphql';
 import * as _ from 'lodash';
 
-const { GraphQLObjectType, GraphQLString, GraphQLSchema } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID } = graphql;
 
 const books = [
   { name: 'Book_001', genre: 'Fantasy', id: '1' },
@@ -13,7 +13,7 @@ const BookType = new GraphQLObjectType({
   name: 'Book',
   fields: () => ({
     id: {
-      type: GraphQLString
+      type: GraphQLID
     },
     name: {
       type: GraphQLString
@@ -29,7 +29,7 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     book: {
       type: BookType,
-      args: { id: { type: GraphQLString } },
+      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return _.find(books, { id: args.id });
       }
